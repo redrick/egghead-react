@@ -1,7 +1,15 @@
 module.exports = {
-  entry: "./app/App.js",
+  entry: {
+    app: ['./app/App.js',]
+  },
   output: {
-    filename: "public/bundle.js"
+    path: __dirname + './public',
+    filename: 'bundle.js'
+  },
+  devServer: {
+    inline: true,
+    contentBase: './public',
+    port: 3001
   },
   module: {
     loaders: [
@@ -16,3 +24,34 @@ module.exports = {
     ]
   }
 }
+
+// var fs = require('fs')
+// var path = require('path')
+// var webpack = require('webpack')
+//
+// module.exports = {
+//
+//   // devtool: 'inline-source-map',
+//
+//   entry: {
+//     app: ['./app/App.js']
+//   },
+//
+//   output: {
+//     path: __dirname + './public',
+//     filename: 'bundle.js'
+//   },
+//
+//   module: {
+//     loaders: [
+//       {
+//         test: /\.js$/,
+//         exclude: /node_modules/,
+//         loader: 'babel',
+//         query: {
+//           presets: ['react', 'es2015']
+//         }
+//       }
+//     ]
+//   }
+// }
