@@ -19,12 +19,15 @@ var Profile = React.createClass({
     }
   },
   componentDidMount: function() {
-    this.ref = new FireBase('https://crackling-inferno-3746.firebaseio.com/');
+    this.ref = new Firebase('https://github-note-taker.firebaseio.com/');
     var childRef = this.ref.child(this.props.params.username);
     this.bindAsArray(childRef, 'notes');
   },
   componentWillUnmount: function() {
     this.unbind('notes');
+  },
+  handleAddNote: function(newNote) {
+    this.ref.child(this.props.params.username).child(this.state.notes.length).set(newNote)
   },
   render: function() {
     return (
@@ -36,7 +39,10 @@ var Profile = React.createClass({
           <Repos username={this.props.params.username} repos={this.state.repos} />
         </div>
         <div className="col-md-4">
-          <Notes username={this.props.params.username} notes={this.state.notes} />
+          <Notes
+            username={this.props.params.username}
+            notes={this.state.notes}
+            addNote={this.handleAddNote} />
         </div>
       </div>
     )
